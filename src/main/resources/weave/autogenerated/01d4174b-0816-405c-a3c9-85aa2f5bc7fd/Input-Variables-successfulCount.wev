@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_01d4174b_0816_405c_a3c9_85aa2f5bc7fd_Input_Variables_successfulCount = Any
+

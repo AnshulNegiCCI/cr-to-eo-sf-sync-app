@@ -1,0 +1,17 @@
+#Local Secure Configuration
+
+#Emburse creds
+emburse:
+  consumerKey: "![aZgGj5v3ePU54AXStmrAiLylTurDSTagpEX0tZwjG5ZrqwCQ5D+vRALkslsvxRueAj/5pM+QvKZo+D5U4C2sTM/VSFGaLzB4GfEv7gRPZ5ucWlFAXrwBpeObgvBfaMLF]"
+  consumerSecret: "![LTIrh+sL7qgFVGxvLi9bTM0CBDA5EgNyojeAz5sRvcTfBfvDHZ1dsLhtjtcT0fN3zjAEC4i+bNL4mcCfVilAmoxbuC0Bk4emQr8JaYAmyas=]"
+  username: "![wJTBuPbb6+d6NEvgFWqzZjmqhFjdz3aQ44MlCg9ncmnQajt5kRpnZBZUSVo0X3LW]"
+  password: "![7NYCQdAEpbZnnpbb7gt378S9UySUK99UiSiCKzZ9h4Q=]"
+  securityToken: "![YjQFw91/DS3dQGbCSHophe/H59qqRb0mvE2oB3JnZUw=]"
+
+#Chrome River creds
+chromeriver:
+  consumerKey: "![oNwrceXmep0cQBJBKPIf3CyfBVxl2CnsRvpacGy8Cn7XiBjC/+Qj/tQ36XgBLKJPA6tnlKH5tDzzvqvdgoubVxZHFy/uX7RfI8G5uenvAIDKwZxseEzOIEC2JeYDPWdN]"
+  consumerSecret: "![c4JUN4CL9rOW2RGKO9EKWkYfkJys+/0zQ2OqTx6jxIdNQ+0WGIq0dEY6pn2sQM9ex/I1UBXeVntjfmc3WYVzcNfYExIKAvAwxVDjr8hJ1uM=]"
+  username: "![wJTBuPbb6+d6NEvgFWqzZjmqhFjdz3aQ44MlCg9ncmkV7w/n+xjfFI7fpEMKhhRs]"
+  password: "![g6RgqtVFJ7jiVENZwGxpXYj9Bxvd2AwdmV6ZIhcorso=]"
+  securityToken: "![YL8Mxve+gS7ietkKS8Ra29X+lr9JRXx9L/KW7XogC/0=]"

@@ -1,0 +1,7 @@
+#Local Configuration
+
+emburse:
+    tokenEndpoint: "https://test.salesforce.com/services/oauth2/token"
+
+chromeriver:
+    tokenEndpoint: "https://test.salesforce.com/services/oauth2/token"

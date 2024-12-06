@@ -1,0 +1,17 @@
+#UAT Secure Configuration
+
+#Emburse creds
+emburse:
+  consumerKey: ""
+  consumerSecret: ""
+  username: ""
+  password: ""
+  securityToken: ""
+
+#Chrome River creds
+chromeriver:
+  consumerKey: ""
+  consumerSecret: ""
+  username: ""
+  password: ""
+  securityToken: ""

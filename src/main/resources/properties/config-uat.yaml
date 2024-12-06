@@ -1,0 +1,7 @@
+#UAT Configuration
+
+emburse:
+    tokenEndpoint: ""
+
+chromeriver:
+    tokenEndpoint: ""

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:module-error-handler-plugin="http://www.mulesoft.org/schema/mule/module-error-handler-plugin"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/module-error-handler-plugin http://www.mulesoft.org/schema/mule/module-error-handler-plugin/current/mule-module-error-handler-plugin.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<error-handler name="global-error-handler" doc:id="4b07898d-7140-4886-9506-20f04edae939" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="17560e11-5525-451b-9927-a688f939eb16" >
+			<module-error-handler-plugin:process-error doc:name="Process Error" doc:id="9d8d0f5a-2771-4ba9-bd15-781317f9c6bf" />
+			<ee:transform doc:name="Prepare Error Message" doc:id="f8856079-1ef5-4252-8b55-7ab9f542f980">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "appName": app.name,
+    "errorCode": payload.error.code,
+    "errorReason": payload.error.reason,
+    "errorMessage": payload.error.message,
+    "correlationId": if ( vars.correlationId != null ) vars.correlationId else correlationId,
+    "timeStamp": if ( vars.timeStamp != null ) vars.timeStamp else now(),
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			<logger level="INFO" doc:name="Error Message" doc:id="24ad3886-37b7-4a57-8377-c6f93dddec75" message="#[payload]"/>
+		</on-error-propagate>
+	</error-handler>
+</mule>
