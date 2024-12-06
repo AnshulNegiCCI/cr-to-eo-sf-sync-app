@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_f4f18948_815c_4d75_86d4_b24fad4ba1a9_Input_Variables_query = String
+

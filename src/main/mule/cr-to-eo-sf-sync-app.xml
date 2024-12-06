@@ -19,9 +19,9 @@ http://www.mulesoft.org/schema/mule/salesforce-composite http://www.mulesoft.org
 				<ee:set-variable resource="dwl/p-correlationId.dwl" variableName="correlationId" />
 			</ee:variables>
 </ee:transform>
-		<logger level="INFO" doc:name="Start" doc:id="94f6b490-c8ed-4daf-b0d1-53357633de57" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Started", &#10;	correlationId: vars.correlationId&#10;}]'/>
+		<logger level="INFO" doc:name="Start" doc:id="94f6b490-c8ed-4daf-b0d1-53357633de57" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Started", &#10;	correlationId: correlationId&#10;}]'/>
 		<flow-ref doc:name="cr-to-eo-sub-flow" doc:id="a8557d5a-90c9-47d7-9260-dfefebdba6cd" name="cr-to-eo-sub-flow"/>
-		<logger level="INFO" doc:name="End" doc:id="b26a7714-276f-498d-8db5-bab85bb290dd" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Ended", &#10;	correlationId: vars.correlationId&#10;}]'/>
+		<logger level="INFO" doc:name="End" doc:id="b26a7714-276f-498d-8db5-bab85bb290dd" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "End of flow : " ++ flow.name,&#10;	message: flow.name ++" has Ended", &#10;	correlationId: correlationId&#10;}]'/>
 		<error-handler ref="global-error-handler" />
 
 	</flow>

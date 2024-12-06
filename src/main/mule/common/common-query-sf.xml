@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="cr-query-sub-flow" doc:id="f4f18948-815c-4d75-86d4-b24fad4ba1a9" >
+		<logger level="INFO" doc:name="Start" doc:id="e5b065dd-c851-4695-bc69-4197debd7a07" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Started",&#10;	objectName: vars.objectName,&#10;	correlationId: correlationId,&#10;}]' />
+		<salesforce:query doc:name="" doc:id="5c4f22f6-a138-44a4-8a2b-37210a64fe8b" config-ref="Salesforce_Chromeriver_Config">
+			<salesforce:salesforce-query ><![CDATA[#[vars.query]]]></salesforce:salesforce-query>
+		</salesforce:query>
+		<logger level="INFO" doc:name="End" doc:id="f880aeb5-8910-437d-a1c4-a49891b59ee0" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "End of flow : " ++ flow.name,&#10;	message: flow.name ++" has Ended", &#10;	objectName : vars.objectName,&#10;	correlationId: correlationId&#10;}]' />
+	</sub-flow>
+</mule>

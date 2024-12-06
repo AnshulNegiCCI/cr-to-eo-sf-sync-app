@@ -2,6 +2,8 @@
 output application/json
 ---
 payload map ((account) -> {
+	"EXT_ID__c" : account.EXT_ID__c,
+	"CRRecordId__c" : account.Id,
     "BypassValidationRules__c": (account.BypassValidationRules__c as Boolean) default null,
     "BillingCountry": account.BillingAddress.country,
     "BillingCity": account.BillingAddress.city,
@@ -24,8 +26,8 @@ payload map ((account) -> {
     "EIA_Invoice_Go_Live__c": (account.EIA_Invoice_Go_Live__c as Date {format: "yyyy-MM-dd"}) default null,
     "ESA_Expense_Go_Live__c": (account.ESA_Expense_Go_Live__c as Date {format: "yyyy-MM-dd"}) default null,
     "ESA_Invoice_Go_Live__c": (account.ESA_Invoice_Go_Live__c as Date {format: "yyyy-MM-dd"}) default null,
-    "Original_MQA_Date__c": (account.Original_MQA_Date__c as Date {format: "yyyy-MM-dd"}) default null,
-    "Recent_MQA_Date__c": (account.Recent_MQA_Date__c as Date {format: "yyyy-MM-dd"}) default null,
+    //"Original_MQA_Date__c": account.Original_MQA_Date__c as Date {format: "yyyy-MM-dd"} as Date {format: "MM/dd/yyyy"} default null,
+    //"Recent_MQA_Date__c": (account.Recent_MQA_Date__c as Date {format: "yyyy-MM-dd"}) default null,
     "SBQQ__PriceHoldEnd__c": (account.SBQQ__PriceHoldEnd__c as Date {format: "yyyy-MM-dd"}) default null,
     "DOZISF__ZoomInfo_First_Updated__c": (account.DOZISF__ZoomInfo_First_Updated__c as DateTime {format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"}) default null,
     "DOZISF__ZoomInfo_Last_Updated__c": (account.DOZISF__ZoomInfo_Last_Updated__c as DateTime {format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"}) default null,

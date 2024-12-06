@@ -1,7 +1,9 @@
 %dw 2.0
-output application/json
+output application/java
 ---
-payload.map((contact) -> {
+payload map((contact) -> {
+	"EXT_ID__c" : contact.EXT_ID__c,
+	"CRRecordId__c" : contact.Id,
     "MailingCity": contact.MailingAddress.city,
     "MailingCountry": contact.MailingAddress.country,
     "MailingCountryCode": contact.MailingAddress.countryCode,

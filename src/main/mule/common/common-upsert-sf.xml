@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<sub-flow name="cr-upsert-sub-flow" doc:id="99ba8d52-6693-4d8a-be51-501989979f13" >
+		<logger level="INFO" doc:name="Start" doc:id="9ca9eb2b-7d30-4e63-8d28-fafc3c212192" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Started",&#10;	objectName: vars.objectName,&#10;	correlationId: correlationId,&#10;}]' />
+		<salesforce:upsert doc:name="" doc:id="cde24a92-2d0d-4499-aa2a-8adc935b1863" config-ref="Salesforce_Emburse_Config" objectType="#[vars.objectName]" externalIdFieldName="EXT_ID__c"/>
+		<logger level="INFO" doc:name="End" doc:id="8bbce1a0-0f4f-4c1d-8d6b-ec255766bd96" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "End of flow : " ++ flow.name,&#10;	message: flow.name ++" has Ended", &#10;	objectName : vars.objectName,&#10;	correlationId: correlationId&#10;}]' />
+	</sub-flow>
+</mule>

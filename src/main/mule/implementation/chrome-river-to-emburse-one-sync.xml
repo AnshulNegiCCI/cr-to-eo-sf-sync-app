@@ -7,8 +7,85 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
 http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
 	<sub-flow name="cr-to-eo-sub-flow" doc:id="7ecd4695-ddd8-4641-91ec-c7e8ad8da68b" >
-		<logger level="INFO" doc:name="Start" doc:id="47db5394-9763-48eb-8865-cd9d1405d95c" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Started", &#10;	correlationId: vars.correlationId&#10;}]' />
+		<logger level="INFO" doc:name="Start" doc:id="47db5394-9763-48eb-8865-cd9d1405d95c" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Started", &#10;	correlationId: correlationId&#10;}]' />
 		
-		<logger level="INFO" doc:name="End" doc:id="18f1d95d-2250-48d7-9b9d-166fa94ae735" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Ended", &#10;	correlationId: vars.correlationId&#10;}]' />
+		<ee:transform doc:name="objects to sync in chrome river" doc:id="22b02dcf-c2cb-4c31-9986-53ea3e3859fe">
+			<ee:message>
+				<ee:set-payload resource="dwl/p-object-list.dwl" />
+			</ee:message>
+		</ee:transform>
+		<foreach doc:name="Iterate objects" doc:id="769b3326-86a6-419b-a5ae-0f18319cfc83" >
+			<ee:transform doc:name="var : query , objectName" doc:id="c02a3625-c1d4-450b-a2d6-4dd4cc0e5a39" >
+				<ee:message />
+				<ee:variables >
+					<ee:set-variable resource="dwl/v-objectName.dwl" variableName="objectName" />
+					<ee:set-variable resource="dwl/v-query-timeStamp.dwl" variableName="query" />
+				</ee:variables>
+			</ee:transform>
+			<flow-ref doc:name="cr-query-sub-flow" doc:id="54de7892-2f71-45df-937e-919ec0f2d8e6" name="cr-query-sub-flow" targetValue="#[payload.Last_Run_Timestamp__c[0]]" target="timeStamp"/>
+			<set-variable value="#[%dw 2.0&#10;output application/java&#10;---&#10;&quot;select &quot; ++  p(&quot;chromeriver.$(payload)&quot;) ++  &quot; where EXT_ID__c != null and LastModifiedById != '&quot; ++ &#10;p(&quot;chromeriver.modified&quot;) ++ &#10;&quot;' and CreatedDate &gt; &quot; ++ &#10;(if (vars.timeStamp != null) vars.timeStamp else |2014-06-01T00:00:00.000Z|)]" doc:name="query : To get records from last run timeStamp" doc:id="030df1d5-34a2-4d33-996a-2461ecd5cdda" variableName="query" />
+			<flow-ref doc:name="cr-query-sub-flow" doc:id="5f02ab9a-45fb-4c58-b03f-14bf23c6b0af" name="cr-query-sub-flow"/>
+			<ee:transform doc:name="var : successfulCount , failedCount , errorMessages,fetchTimeStamp" doc:id="9d248707-2e13-41db-b725-b9744f2b6e51" >
+				<ee:message />
+				<ee:variables >
+					<ee:set-variable variableName="successfulCount" ><![CDATA[%dw 2.0
+output application/json
+---
+0]]></ee:set-variable>
+					<ee:set-variable variableName="failedCount" ><![CDATA[%dw 2.0
+output application/json
+---
+0]]></ee:set-variable>
+					<ee:set-variable variableName="errorMessages" ><![CDATA[%dw 2.0
+output application/json
+---
+""]]></ee:set-variable>
+					<ee:set-variable variableName="fetchTimeStamp" ><![CDATA[%dw 2.0
+output application/json
+---
+(now() as DateTime { format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" })]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+			<choice doc:name="Records ?" doc:id="27af28de-9b15-492d-b7dd-c871df2961bc" >
+				<when expression="#[sizeOf(payload) &gt; 0]" >
+					<set-variable value='#[%dw 2.0&#10;output application/java&#10;var fileName = "dwl/chromeriver/$(lower(vars.objectName)).dwl"&#10;---&#10;readUrl("classpath://" ++ fileName, "text/plain")]' doc:name="filePath : mapping file by object name" doc:id="dfb65349-19a5-4e2a-b0a7-01ce00c54a39" variableName="filePath" />
+					<ee:dynamic-evaluate doc:name="Mapping by filePath" doc:id="766686ea-3e1b-4d18-925e-63ddf2844307" expression="#[vars.filePath]"/>
+					<ee:transform doc:name="split payload into batches : 180" doc:id="9d036728-1073-4beb-9bf7-11bd3541f89e" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+import * from dw::core::Arrays 
+output application/java
+---
+payload divideBy  p('chromeriver.batchSize')]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+					<foreach doc:name="upsert batches" doc:id="b766731d-2f76-4adf-b0cd-d69ae6741563" >
+						<set-variable value="#[%dw 2.0&#10;output application/java&#10;---&#10;payload]" doc:name="batchPayload : To retrive chromeriver ID" doc:id="864848a5-f6fa-47fc-87a6-0fdaf7740b2f" variableName="batchPayload" />
+						<flow-ref doc:name="cr-upsert-sub-flow" doc:id="0676ab5b-a48e-431d-a632-bd41805d5451" name="cr-upsert-sub-flow"/>
+						<ee:transform doc:name="var : successfulCount , failedCount , errorMessages" doc:id="204ff4d9-b11e-49e0-86ab-faf979efa8e0" >
+							<ee:message />
+							<ee:variables >
+								<ee:set-variable resource="dwl/v-errorMessages.dwl" variableName="errorMessages" />
+								<ee:set-variable resource="dwl/v-successfulCount.dwl" variableName="successfulCount" />
+								<ee:set-variable resource="dwl/v-failedCount.dwl" variableName="failedCount" />
+							</ee:variables>
+						</ee:transform>
+						<logger level="INFO" doc:name="Batch Response" doc:id="71e7f8fb-c082-46ff-86c1-1417ffcc015e" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"object name" : vars.objectName,&#10;	"batch" : vars.counter,&#10;	"success Records" : vars.successfulCount,&#10;	"failed Records" : vars.failedCount,&#10;}]' />
+					</foreach>
+				</when>
+				<otherwise >
+					<logger level="INFO" doc:name="empty records" doc:id="60374dbe-f3f5-449b-ad2b-162152ececf8" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"Message" : "There are no records to create or update in " ++ vars.objectName,&#10;	"Last Run time" :vars.timeStamp,&#10;	"Last query time" : vars.fetchTimeStamp&#10;}]' />
+				</otherwise>
+			</choice>
+			<ee:transform doc:name="Payload for watermarking" doc:id="78ddc6b6-3c07-453e-8600-50cc267ad7c8">
+			<ee:message>
+				<ee:set-payload resource="dwl/p-emburse-watermarking.dwl" />
+			</ee:message>
+			<ee:variables />
+		</ee:transform>
+			<set-variable value="Watermarking__c" doc:name="objectName : change to watermarking" doc:id="1801f5ee-f990-48c5-a1f9-46998818db6e" variableName="objectName" />
+			<flow-ref doc:name="cr-create-sub-flow" doc:id="23ffa603-329e-455a-b956-fd73f4b8d42e" name="cr-create-sub-flow"/>
+		</foreach>
+		<logger level="INFO" doc:name="End" doc:id="18f1d95d-2250-48d7-9b9d-166fa94ae735" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "End of flow : " ++ flow.name,&#10;	message: flow.name ++" has Ended", &#10;	correlationId: correlationId&#10;}]' />
 	</sub-flow>
 </mule>

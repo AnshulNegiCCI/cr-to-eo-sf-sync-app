@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="cr-create-sub-flow" doc:id="f055a9df-cdcb-45c2-9eab-24cdde4b3aa8" >
+		<logger level="INFO" doc:name="Start" doc:id="4f5c5ff1-3bfd-4c43-b174-f81880c0a732" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "Start of flow : " ++ flow.name,&#10;	message: flow.name ++" has Started",&#10;	objectName: vars.objectName,&#10;	correlationId: correlationId,&#10;}]' />
+		<salesforce:create doc:name="" doc:id="2bb26a3d-c8d3-4d1b-8cc3-3ed9903c523b" config-ref="Salesforce_Chromeriver_Config" type="#[vars.objectName]"/>
+		<logger level="INFO" doc:name="End" doc:id="466749a8-ad70-4db7-b61d-d6b16c1114f3" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "End of flow : " ++ flow.name,&#10;	message: flow.name ++" has Ended", &#10;	objectName : vars.objectName,&#10;	correlationId: correlationId&#10;}]' />
+	</sub-flow>
+</mule>

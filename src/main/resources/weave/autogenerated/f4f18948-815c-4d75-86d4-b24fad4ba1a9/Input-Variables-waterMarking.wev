@@ -1,0 +1,7 @@
+%dw 2.0
+
+type auto_f4f18948_815c_4d75_86d4_b24fad4ba1a9_Input_Variables_waterMarking = {|
+  Payload_Type__c: String, 
+  Last_Run_Timestamp__c: DateTime {"format": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"}
+|}
+
