@@ -8,10 +8,8 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/salesforce-composite http://www.mulesoft.org/schema/mule/salesforce-composite/current/mule-salesforce-composite.xsd
 http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
 http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
-	<global-property doc:name="Global Property" doc:id="18fe6b82-d734-4bff-8372-760647eacfbe" name="mule.key" value="MulesoftUAT2024!" />
 	<configuration-properties doc:name="Configuration properties" doc:id="ad8e01f7-3e22-4794-9c4d-d359293b1822" file="properties\config-${mule.env}.yaml" />
 	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="3e579d4a-0e25-409f-afe0-948d8fe4d5ce" file="properties\secure\config-${mule.env}-secure.yaml" key="${mule.key}" />
-	<global-property doc:name="Global Property" doc:id="0856e892-cdd1-465a-8851-802ba31719c0" name="mule.env" value="dev" />
 	<salesforce:sfdc-config name="Salesforce_Emburse_Config" doc:name="Salesforce Config" doc:id="36a94f35-b8d7-44bb-8da3-ad61b788c6f5" >
 		<salesforce:oauth-user-pass-connection consumerKey="${secure::emburse.consumerKey}" consumerSecret="${secure::emburse.consumerSecret}" username="${secure::emburse.username}" password="${secure::emburse.password}" securityToken="${secure::emburse.securityToken}" tokenEndpoint="${emburse.tokenEndpoint}"/>
 	</salesforce:sfdc-config>

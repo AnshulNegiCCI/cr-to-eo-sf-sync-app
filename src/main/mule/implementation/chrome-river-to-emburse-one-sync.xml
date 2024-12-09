@@ -23,7 +23,7 @@ http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/cu
 				</ee:variables>
 			</ee:transform>
 			<flow-ref doc:name="cr-query-sub-flow" doc:id="54de7892-2f71-45df-937e-919ec0f2d8e6" name="cr-query-sub-flow" targetValue="#[payload.Last_Run_Timestamp__c[0]]" target="timeStamp"/>
-			<set-variable value="#[%dw 2.0&#10;output application/java&#10;---&#10;&quot;select &quot; ++  p(&quot;chromeriver.$(payload)&quot;) ++  &quot; where EXT_ID__c != null and LastModifiedById != '&quot; ++ &#10;p(&quot;chromeriver.modified&quot;) ++ &#10;&quot;' and CreatedDate &gt; &quot; ++ &#10;(if (vars.timeStamp != null) vars.timeStamp else |2014-06-01T00:00:00.000Z|)]" doc:name="query : To get records from last run timeStamp" doc:id="030df1d5-34a2-4d33-996a-2461ecd5cdda" variableName="query" />
+			<set-variable value="#[%dw 2.0&#10;output application/java&#10;---&#10;&quot;select &quot; ++  p(&quot;chromeriver.$(payload)&quot;) ++  &quot; where EXT_ID__c != null and LastModifiedById != '&quot; ++ &#10;p(&quot;chromeriver.modified&quot;) ++ &#10;&quot;' and LastModifiedDate &gt; &quot; ++ &#10;(if (vars.timeStamp != null) vars.timeStamp else |2014-06-01T00:00:00.000Z|)]" doc:name="query : To get records from last run timeStamp" doc:id="030df1d5-34a2-4d33-996a-2461ecd5cdda" variableName="query" />
 			<flow-ref doc:name="cr-query-sub-flow" doc:id="5f02ab9a-45fb-4c58-b03f-14bf23c6b0af" name="cr-query-sub-flow"/>
 			<ee:transform doc:name="var : successfulCount , failedCount , errorMessages,fetchTimeStamp" doc:id="9d248707-2e13-41db-b725-b9744f2b6e51" >
 				<ee:message />
@@ -43,7 +43,8 @@ output application/json
 					<ee:set-variable variableName="fetchTimeStamp" ><![CDATA[%dw 2.0
 output application/json
 ---
-(now() as DateTime { format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" })]]></ee:set-variable>
+(now() >> "GMT") as DateTime {format : "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" } 
+]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<choice doc:name="Records ?" doc:id="27af28de-9b15-492d-b7dd-c871df2961bc" >
@@ -79,7 +80,27 @@ payload divideBy  p('chromeriver.batchSize')]]></ee:set-payload>
 			</choice>
 			<ee:transform doc:name="Payload for watermarking" doc:id="78ddc6b6-3c07-453e-8600-50cc267ad7c8">
 			<ee:message>
-				<ee:set-payload resource="dwl/p-emburse-watermarking.dwl" />
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+var total = vars.successfulCount + vars.failedCount
+var status = 
+    if (vars.successfulCount == total and vars.successfulCount != 0) "Successful"
+    else if (vars.failedCount == total and vars.failedCount != 0) "Unsuccessful"
+    else if (vars.successfulCount != 0 and vars.failedCount != 0) "Partially Successful"
+    else "No records processed"
+var errorLog = if (vars.errorMessages != "") vars.errorMessages else "No errors"
+---
+[{
+    Payload_Type__c: vars.objectName,
+    Last_Run_Timestamp__c: vars.fetchTimeStamp as DateTime,    
+    CorrelationID__c: correlationId,
+    Error_Log__c: errorLog,
+    Error_Count__c: vars.failedCount as String,
+    Success_Count__c: vars.successfulCount as String,
+    Total_Records_Processed__c: total,
+    Status__c: status
+}]
+]]></ee:set-payload>
 			</ee:message>
 			<ee:variables />
 		</ee:transform>
