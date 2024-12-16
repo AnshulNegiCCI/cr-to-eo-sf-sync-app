@@ -4,7 +4,7 @@ output application/java
 payload map((contact) -> {
 	"EXT_ID__c" : contact.EXT_ID__c,
 	"FirstName" : contact.FirstName,
-  "LastName": contact.LastName,
+    "LastName": contact.LastName,
 	"CRRecordId__c" : contact.Id,
     "MailingCity": contact.MailingAddress.city,
     "MailingCountry": contact.MailingAddress.country,

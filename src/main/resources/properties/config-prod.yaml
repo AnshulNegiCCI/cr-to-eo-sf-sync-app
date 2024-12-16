@@ -1,7 +1,9 @@
 #Prod Configuration
 
 emburse:
-    tokenEndpoint: ""
+    tokenEndpoint: "https://login.salesforce.com/services/oauth2/token"
+    modified : "005Vt00000442ovIAA"
+
 
 chromeriver:
-    tokenEndpoint: ""
+    tokenEndpoint: "https://login.salesforce.com/services/oauth2/token"

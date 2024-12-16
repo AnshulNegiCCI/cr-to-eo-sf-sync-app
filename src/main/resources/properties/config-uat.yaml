@@ -1,7 +1,9 @@
 #UAT Configuration
 
 emburse:
-    tokenEndpoint: ""
+    tokenEndpoint: "https://test.salesforce.com/services/oauth2/token"
+    modified : "005WJ000005UQbhYAG"
+
 
 chromeriver:
-    tokenEndpoint: ""
+    tokenEndpoint: "https://test.salesforce.com/services/oauth2/token"
