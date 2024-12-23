@@ -7,7 +7,7 @@ http://www.mulesoft.org/schema/mule/module-error-handler-plugin http://www.mules
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<error-handler name="global-error-handler" doc:id="4b07898d-7140-4886-9506-20f04edae939" >
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="17560e11-5525-451b-9927-a688f939eb16" >
-			<module-error-handler-plugin:process-error doc:name="Process Error" doc:id="9d8d0f5a-2771-4ba9-bd15-781317f9c6bf" />
+			<module-error-handler-plugin:process-error doc:name="Process Error" doc:id="ef0fd68b-64eb-4836-afb8-b81f99aec0dc" />
 			<ee:transform doc:name="Prepare Error Message" doc:id="f8856079-1ef5-4252-8b55-7ab9f542f980">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0

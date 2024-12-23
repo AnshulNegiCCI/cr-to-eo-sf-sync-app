@@ -9,7 +9,7 @@
 
 	<name>cr-to-eo-sf-sync-app</name>
 
-	<description>This app is used for syncing and creating and updating data from  Chrome River Salesforce to Emburse One Salesforce.</description>
+	<description>This app is used for syncing and upserting data from  Chrome River Salesforce to Emburse One Salesforce.</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -63,13 +63,14 @@
 			<version>1.2.7</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>d334bd12-252b-4e9a-8fdf-367d76c37cd9</groupId>
 			<artifactId>common-error-handler</artifactId>
 			<version>1.0.0</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+
 	</dependencies>
 
 	<repositories>
