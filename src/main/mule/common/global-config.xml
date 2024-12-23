@@ -11,10 +11,10 @@ http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/cu
 	<configuration-properties doc:name="Configuration properties" doc:id="ad8e01f7-3e22-4794-9c4d-d359293b1822" file="properties\config-${mule.env}.yaml" />
 	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="3e579d4a-0e25-409f-afe0-948d8fe4d5ce" file="properties\secure\config-${mule.env}-secure.yaml" key="${mule.key}" />
 	<salesforce:sfdc-config name="Salesforce_Emburse_Config" doc:name="Salesforce Config" doc:id="36a94f35-b8d7-44bb-8da3-ad61b788c6f5" >
-		<salesforce:oauth-user-pass-connection consumerKey="${secure::emburse.consumerKey}" consumerSecret="${secure::emburse.consumerSecret}" username="${secure::emburse.username}" password="${secure::emburse.password}" securityToken="${secure::emburse.securityToken}" tokenEndpoint="${emburse.tokenEndpoint}"/>
+		<salesforce:oauth-user-pass-connection consumerKey="${secure::emburse.consumerKey}" consumerSecret="${secure::emburse.consumerSecret}" username="${emburse.username}" password="${secure::emburse.password}" securityToken="${secure::emburse.securityToken}" tokenEndpoint="${emburse.tokenEndpoint}"/>
 	</salesforce:sfdc-config>
 	<salesforce:sfdc-config name="Salesforce_Chromeriver_Config" doc:name="Salesforce Config" doc:id="7e5afb14-b813-4938-a476-a53c24efe09b" >
-		<salesforce:oauth-user-pass-connection consumerKey="${secure::chromeriver.consumerKey}" consumerSecret="${secure::chromeriver.consumerSecret}" username="${secure::chromeriver.username}" password="${secure::chromeriver.password}" securityToken="${secure::chromeriver.securityToken}" tokenEndpoint="${chromeriver.tokenEndpoint}"/>
+		<salesforce:oauth-user-pass-connection consumerKey="${secure::chromeriver.consumerKey}" consumerSecret="${secure::chromeriver.consumerSecret}" username="${chromeriver.username}" password="${secure::chromeriver.password}" securityToken="${secure::chromeriver.securityToken}" tokenEndpoint="${chromeriver.tokenEndpoint}"/>
 	</salesforce:sfdc-config>
 	<configuration-properties doc:name="Configuration properties" doc:id="a8e7aeca-7803-4c33-a06d-455eace628a3" file="properties\common\common.yaml" />
 	

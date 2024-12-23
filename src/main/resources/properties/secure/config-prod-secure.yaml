@@ -2,16 +2,14 @@
 
 #Emburse creds
 emburse:
-  consumerKey: "![XdURsIQ8x3wdsQrw+lMWx/tOCgf8BHp7t6w3XFGeYUA4kpojfxyos5UIYvHXXwAqAo93K38Zd5oLMjadgqk3GWtTAnfHPnuB6EESM0VQg7TndB5PHo7fS1KZ51mJi3N7]"
-  consumerSecret: "![Xubey2rmc7s3Xo+lZUwLhRxtaXRI86ZOBiG7CumvEqP6qYwL/KjZ+5G8FZc3cK4tDgxlEDd3SReAfwmk1jK82BBOBrlvVYH51aLeOkeb3PQ=]"
-  username: "![wJTBuPbb6+d6NEvgFWqzZjmqhFjdz3aQ44MlCg9ncmmEJM/T+ptfxGoCXJVT7d+f]"
-  password: "![Ft+c1Dm8Xx8Z86D3uJdkqQ==]"
-  securityToken: "![fDnVB7stj6FjTdeONglfAjKhk9I5uTXyTPzUd5zAhlo=]"
+  consumerKey: "![kycCrnTiu5O39qzMJDRNfhEdHalxiWxYbMF5OCrhu17Q9PPsNej5NiiE/JRd0/I/3ErMeGZDzCbfCjygAVZ61r+E6Kh/CVSQriq1Vasq1B2FL8AZGBwE4Uh5kJBIysMy]"
+  consumerSecret: "![/qnS54yaha577tKBljOuuIt4LdcewQmUggVS0De7W13TBJDOSnmWSh9Ic/J8AWSgTWBMzl2Z9BHfm+ilrzYTDLObDPe6IljBC5ynzav1cdQ=]"
+  password: "![oQzZuNNdbthiY0dJSL8eMg==]"
+  securityToken: "![BfNK0rnkUYXpanlqOCfx4geCC27oHNGtrCqKRvWN/xs=]"
 
 #Chrome River creds
 chromeriver:
-  consumerKey: "![Zs7gzKajKG075IVe34/a+UtmSEfymaBPnUR/O0D397ydgCApWWjI9c88Xo2K0YxjaipCDhMw9uNTJ7HF1y8IfEgLhW6k7OMzhjcAJ8w5LSxkn7CX5tAtUgNM8QdkiUwB]"
-  consumerSecret: "![s3HEtouRveHPIvY7F1dYJdrSaXZoBevNr0uaH40T06OgwrOWCksWYWsFKG8obacR1daSDgIWm28Mos2AT48boioFdG9ac89RGcnAvEvERgY=]"
-  username: "![wJTBuPbb6+d6NEvgFWqzZjmqhFjdz3aQ44MlCg9ncmkhaI9VOgNUVPz936SF5N95]"
-  password: "![KX0Y5zBWuAQdf4dyf6+oCg==]"
-  securityToken: "![V75OVAKJDKe5TmYAQe0FxjoVtS2efu+GMJE2Uh4dMCY=]"
+    consumerKey: "![nqnU166i8oeysN/bFgkQV3cPTQmcy+8XVVzqNrY9ceGYTmFBfSXRornDY5IEqkOg6wGxQGz62z/amOPQlu6FZrYxI2eE7/wExEN3LH3OV/Hx3rqCXOj2jx/4ZtyLTDY5]"
+    consumerSecret: "![BPhOIE+dpQLfrMFIHlWdkFNcGfwIqTKU3PSuQwS+PYIByGDfYQJ2UXV44SYR2SYkdNJZH+kUGrVITgSdbvvRPWyYNN2hoxTp7HcTuKLWwkU=]"
+    password: "![6hstrIsXYS6BMJB/6cDZYA==]"
+    securityToken: "![CbudHaPWu/CNzKGb1FNqlXtObgvhFGS2UNj6brViORQ=]"
