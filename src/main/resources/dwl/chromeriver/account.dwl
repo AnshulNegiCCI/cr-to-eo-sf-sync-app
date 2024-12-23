@@ -5,6 +5,7 @@ payload map ((account) -> {
 	"EXT_ID__c" : account.EXT_ID__c,
 	 "Name" : account.Name,
 	"CRRecordId__c" : account.Id,
+	"MQA_Disposition__c" : account.MQA_Disposition__c,
     "BypassValidationRules__c": (account.BypassValidationRules__c as Boolean) default null,
     "BillingCountry": account.BillingAddress.country,
     "BillingCity": account.BillingAddress.city,

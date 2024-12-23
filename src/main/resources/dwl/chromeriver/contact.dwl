@@ -3,7 +3,7 @@ output application/java
 ---
 payload map((contact) -> {
 	"EXT_ID__c" : contact.EXT_ID__c,
-	"FirstName" : contact.FirstName,
+ 	"FirstName" : contact.FirstName,
     "LastName": contact.LastName,
 	"CRRecordId__c" : contact.Id,
     "MailingCity": contact.MailingAddress.city,
@@ -16,7 +16,6 @@ payload map((contact) -> {
     "MailingGeocodeAccuracy": contact.MailingAddress.geocodeAccuracy,
     "MailingState": contact.MailingAddress.state,
     "MailingStateCode": contact.MailingAddress.stateCode,
-    "OtherAddress": contact.OtherAddress,
     "Solutions__c": (contact.Solutions__c as Boolean) default null,
     "sOGraderConsultRequested__c": (contact.sOGraderConsultRequested__c as Boolean) default null,
     "Customer_Newsletter__c": (contact.Customer_Newsletter__c as Boolean) default null,

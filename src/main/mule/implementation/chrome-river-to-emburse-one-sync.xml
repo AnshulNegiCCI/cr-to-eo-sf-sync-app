@@ -104,8 +104,10 @@ var errorLog = if (vars.errorMessages != "") vars.errorMessages else "No errors"
 			</ee:message>
 			<ee:variables />
 		</ee:transform>
+			<logger level="INFO" doc:name="watermarking payload" doc:id="a440b8c8-3577-4efd-abc4-370e80ff7c47" message="#[%dw 2.0&#10;output application/json&#10;---&#10;payload]" />
 			<set-variable value="Watermarking__c" doc:name="objectName : change to watermarking" doc:id="1801f5ee-f990-48c5-a1f9-46998818db6e" variableName="objectName" />
 			<flow-ref doc:name="cr-create-sub-flow" doc:id="23ffa603-329e-455a-b956-fd73f4b8d42e" name="cr-create-sub-flow"/>
+			<logger level="INFO" doc:name="watermarking response" doc:id="abc0588f-1dba-4a09-8a08-334d559b2c77" message="#[%dw 2.0&#10;output application/json&#10;---&#10;payload]" />
 		</foreach>
 		<logger level="INFO" doc:name="End" doc:id="18f1d95d-2250-48d7-9b9d-166fa94ae735" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{ &#10;	flow : "End of flow : " ++ flow.name,&#10;	message: flow.name ++" has Ended", &#10;	correlationId: correlationId&#10;}]' />
 	</sub-flow>

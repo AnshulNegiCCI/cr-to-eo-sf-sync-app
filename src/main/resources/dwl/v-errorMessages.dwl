@@ -3,7 +3,7 @@ output application/java
 ---
 vars.errorMessages ++ ((vars.batchPayload
     map ((item, index) -> {
-        EmbursseId: item.updateId,
+        EmbursseId: item.CRRecordId__c,
         CrId: item.Id,
         response: payload.items[index],
         Name:if(vars.objectName != "Account")((item.FirstName) default "" ++" "++ (item.LastName) default "")  else item.Name default ""
