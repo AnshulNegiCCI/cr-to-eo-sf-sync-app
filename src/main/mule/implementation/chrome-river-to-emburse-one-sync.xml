@@ -94,7 +94,10 @@ var errorLog = if (vars.errorMessages != "") vars.errorMessages else "No errors"
     Payload_Type__c: vars.objectName,
     Last_Run_Timestamp__c: vars.fetchTimeStamp as DateTime,    
     CorrelationID__c: correlationId,
-    Error_Log__c: errorLog,
+    Error_Log__c: if (sizeOf(errorLog) > 100000) 
+                "The length of the error string is too large" 
+             	else 
+               	 errorLog,
     Error_Count__c: vars.failedCount as String,
     Success_Count__c: vars.successfulCount as String,
     Total_Records_Processed__c: total,
